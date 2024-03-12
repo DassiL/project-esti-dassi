@@ -7,9 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BlApi\" />
-    <Folder Include="BlImplemntion\" />
-    <Folder Include="BlObject\" />
+    <Compile Remove="BlImplemntion\**" />
+    <EmbeddedResource Remove="BlImplemntion\**" />
+    <None Remove="BlImplemntion\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="BlImplemntion\AddressForClientRepo.cs" />
+  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Dal\Dal.csproj" />
+	</ItemGroup>
 </Project>

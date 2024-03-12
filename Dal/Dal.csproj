@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DalObject\Adress.cs" />
-    <Compile Remove="DalObject\LibraryContext.cs" />
-    <Compile Remove="DalObject\Profession.cs" />
-    <Compile Remove="DalObject\ProfessionalsMan.cs" />
-    <Compile Remove="DalObject\Reference.cs" />
+    <Compile Remove="DalImplemntion\**" />
+    <EmbeddedResource Remove="DalImplemntion\**" />
+    <None Remove="DalImplemntion\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DalImplemntion\AddressRepo.cs" />
+    <Compile Include="DalImplemntion\ProfessionalsManRepo.cs" />
+    <Compile Include="DalImplemntion\ProfessionRepo.cs" />
+    <Compile Include="DalImplemntion\ReferenceRepo.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,14 +25,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Bl\Bl.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DalObject\" />
   </ItemGroup>
 
 </Project>

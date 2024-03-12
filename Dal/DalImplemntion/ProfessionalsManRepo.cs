@@ -1,5 +1,5 @@
 ﻿using Dal.DalApi;
-using Dal.Models;
+using Dal.DalObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dal.DalImplemntion
 {
-    public class ProfessionalsManRepo : IProfessionalsManRepo
+    public class ProfessionalsManRepo : IRepo<ProfessionalsMan>
     {
         LibraryContext context;
         public ProfessionalsManRepo(LibraryContext context)
@@ -16,14 +16,14 @@ namespace Dal.DalImplemntion
             this.context = context;
         }
 
-        public ProfessionalsMan AddProfessionalsMan(ProfessionalsMan professionalsMan)
+        public ProfessionalsMan Add(ProfessionalsMan t)
         {
-            context.ProfessionalsMen.Add(professionalsMan);
+            context.ProfessionalsMen.Add(t);
             context.SaveChanges();
-            return professionalsMan;
+            return t;
         }
 
-        public ProfessionalsMan DeleteProfessionalsMan(int id)
+        public ProfessionalsMan Delete(int id)
         {
             ProfessionalsMan remove =  context.ProfessionalsMen.FirstOrDefault(x=>x.Id == id);
             context.ProfessionalsMen.Remove(remove);
@@ -31,21 +31,22 @@ namespace Dal.DalImplemntion
             return remove;
         }
 
-        public List<ProfessionalsMan> GetAllProfessionalsMan()
+        public List<ProfessionalsMan> GetAll()
         {
             return context.ProfessionalsMen.ToList();
         }
 
-        public ProfessionalsMan GetByIdProfessionalsMan(int id)
+        public ProfessionalsMan GetById(int id)
         {
             return context.ProfessionalsMen.FirstOrDefault(x=>x.Id == id);
         }
-        public ProfessionalsMan UpdateProfessionalsMan(int id, ProfessionalsMan professionalsMan)
+        public ProfessionalsMan Update(int id, ProfessionalsMan professionalsMan)
         {
             ProfessionalsMan n = context.ProfessionalsMen.FirstOrDefault(x => x.Id == id);
             n = professionalsMan;
             context.SaveChanges();
             return professionalsMan;
         }
+
     }
 }

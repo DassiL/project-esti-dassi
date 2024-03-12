@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Models;
+namespace Dal.DalObject;
 
 public partial class LibraryContext : DbContext
 {
+    public LibraryContext()
+    {
+    }
+
     public LibraryContext(DbContextOptions<LibraryContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<Adress> Adresses { get; set; }
+    public virtual DbSet<Address> Addresses { get; set; }
 
     public virtual DbSet<Profession> Professions { get; set; }
 
@@ -19,13 +23,17 @@ public partial class LibraryContext : DbContext
 
     public virtual DbSet<Reference> References { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=H:\\project-esti-dassi\\DB\\DB.mdf;Integrated Security=True;Connect Timeout=30");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Adress>(entity =>
+        modelBuilder.Entity<Address>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07EB40E955");
+            entity.HasKey(e => e.Id).HasName("PK__Address__3214EC07C19EEA8E");
 
-            entity.ToTable("Adress");
+            entity.ToTable("Address");
 
             entity.Property(e => e.Apartment)
                 .HasMaxLength(10)
@@ -36,6 +44,10 @@ public partial class LibraryContext : DbContext
                 .HasMaxLength(10)
                 .IsFixedLength()
                 .HasColumnName("city");
+            entity.Property(e => e.Neighborhood)
+                .HasMaxLength(15)
+                .IsFixedLength()
+                .HasColumnName("neighborhood");
             entity.Property(e => e.Street)
                 .HasMaxLength(10)
                 .IsFixedLength()
@@ -62,8 +74,7 @@ public partial class LibraryContext : DbContext
             entity.ToTable("ProfessionalsMan");
 
             entity.Property(e => e.Email)
-                .IsRequired()
-                .HasMaxLength(25)
+                .HasMaxLength(35)
                 .HasColumnName("email");
             entity.Property(e => e.FirstName)
                 .HasMaxLength(10)
@@ -82,11 +93,15 @@ public partial class LibraryContext : DbContext
                 .HasMaxLength(10)
                 .IsFixedLength()
                 .HasColumnName("phon");
+            entity.Property(e => e.WhatsApp)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("whatsApp");
 
             entity.HasOne(d => d.IdAdressNavigation).WithMany(p => p.ProfessionalsMen)
                 .HasForeignKey(d => d.IdAdress)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ProfessionalsMan_ToTable_Adress");
+                .HasConstraintName("FK_ProfessionalsMan_ToTable");
 
             entity.HasOne(d => d.IdTypeNavigation).WithMany(p => p.ProfessionalsMen)
                 .HasForeignKey(d => d.IdType)

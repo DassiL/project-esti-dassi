@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dal.Models;
+namespace Dal.DalObject;
 
 public partial class Reference
 {

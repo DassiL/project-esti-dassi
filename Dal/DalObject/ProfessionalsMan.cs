@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dal.Models;
+namespace Dal.DalObject;
 
 public partial class ProfessionalsMan
 {
@@ -21,7 +21,9 @@ public partial class ProfessionalsMan
 
     public string Phon { get; set; }
 
-    public virtual Adress IdAdressNavigation { get; set; }
+    public string WhatsApp { get; set; }
+
+    public virtual Address IdAdressNavigation { get; set; }
 
     public virtual Profession IdTypeNavigation { get; set; }
 

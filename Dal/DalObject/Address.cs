@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dal.Models;
+namespace Dal.DalObject;
 
-public partial class Adress
+public partial class Address
 {
     public int Id { get; set; }
 
@@ -12,6 +12,8 @@ public partial class Adress
     public string Street { get; set; }
 
     public string Apartment { get; set; }
+
+    public string Neighborhood { get; set; }
 
     public virtual ICollection<ProfessionalsMan> ProfessionalsMen { get; set; } = new List<ProfessionalsMan>();
 }
