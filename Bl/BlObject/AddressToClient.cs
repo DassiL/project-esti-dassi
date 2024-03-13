@@ -8,11 +8,15 @@ namespace Bl.BlObject
 {
     public class AddressToClient
     {
-        public AddressToClient(string city,string nighbord)
-        {
-            this.City = city;
-            this.Nighbord = nighbord;
+        //public AddressToClient(string city,string nighbord)
+        //{
+        //    this.City = city;
+        //    this.Nighbord = nighbord;
         
+        //}
+        public AddressToClient()
+        {
+                
         }
         public string City { get; set; }
         public string Nighbord { get; set; }

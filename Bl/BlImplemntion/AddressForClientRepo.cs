@@ -1,6 +1,7 @@
 ﻿using Bl.BlApi;
 using Bl.BlObject;
 using Dal;
+using Dal.DalImplemntion;
 using Dal.DalObject;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,16 @@ namespace Bl.BlImplemntion
 {
     public class AddressForClientRepo : IRepo<AddressToClient>
     {
-        DalManager dalManager;
+        AddressRepo  addressRepo;
+        ProfessionRepo proff;
         public AddressForClientRepo(DalManager dalManager)
         {
-            this.dalManager = dalManager;
+            this.addressRepo = dalManager.address ;
+            this.proff = dalManager.profession ;
         }
         public Address Add(Address t)
         {
-            dalManager.address.Add(t);
+            addressRepo.Add(t);
             return t;
         }
         public AddressToClient Add(AddressToClient t)
@@ -28,24 +31,24 @@ namespace Bl.BlImplemntion
         }
         public AddressToClient Delete(int id)
         {
-            Address a = dalManager.address.Delete(id);
-            return new AddressToClient(a.City,a.Neighborhood);
+            Address a = addressRepo.Delete(id);
+            return new AddressToClient() { City = a.City, Nighbord = a.Neighborhood };
         }
         public List<AddressToClient> GetAll()
         {
-            List<Address> addressToClients = dalManager.address.GetAll();
+            List<Address> addressToClients = addressRepo.GetAll();
             List<AddressToClient> ans = new List<AddressToClient>();
             for (int i = 0; i < addressToClients.Count; i++)
             {
-                ans.Add(new AddressToClient(addressToClients[i].City, addressToClients[i].Street));
+                ans.Add(new AddressToClient() { City = addressToClients[i].City, Nighbord = addressToClients[i].Street });
             }
             return ans;
         }
 
         public AddressToClient GetById(int id)
         {
-            Address address = dalManager.address.GetById(id);
-            return new AddressToClient(address.City, address.Street);
+            Address address = addressRepo.GetById(id);
+            return new AddressToClient() { City = address.City, Nighbord = address.Street };
             
         }
 
@@ -56,7 +59,7 @@ namespace Bl.BlImplemntion
             address.Neighborhood = t.Nighbord;
             address.Street = street;
             address.Apartment = apartment;
-            dalManager.address.Update(id, address);
+            addressRepo.Update(id, address);
             return t;
         }
 

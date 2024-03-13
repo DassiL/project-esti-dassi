@@ -1,4 +1,5 @@
-﻿using Bl.BlApi;
+﻿using Bl;
+using Bl.BlApi;
 using Bl.BlImplemntion;
 using Bl.BlObject;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +14,9 @@ namespace project.controllers
     
     
             IRepo<AddressToClient> AddressToClientRepo;
-            public AddressToClientController(IRepo<AddressToClient> AddressToClientRepo)
+            public AddressToClientController(BlManger manager)
             {
-                this.AddressToClientRepo = AddressToClientRepo;
+                this.AddressToClientRepo = manager.addressForClientRepo ;
             }
             [HttpGet]
             public ActionResult<List<AddressToClient>> GetAllAdresses()
